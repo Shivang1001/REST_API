@@ -12,6 +12,7 @@ mongoose.connect(`mongodb+srv://goelshivang123:${process.env.MONGO_ATLAS_PW}@clu
 ).then(() => {
   console.log('DB Connected')
 }).catch((err) => console.log(err))
+
 const uri = process.env.ATLAS_PW;
 //mongoose.connect(uri + {});
 
