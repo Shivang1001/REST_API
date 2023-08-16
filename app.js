@@ -3,17 +3,17 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const dotenv = require('dotenv')
 const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
+const orderRoutes = require('./api/routes/orders')
+dotenv.config()
 
-mongoose.connect("mongodb+srv://shivang1001:" +
-  process.env.MONGO_ATLAS_PW +
-  "@shivang.aqwcgu6.mongodb.net/?retryWrites=true&w=majority"
-
-);
+mongoose.connect(`mongodb+srv://goelshivang123:${process.env.MONGO_ATLAS_PW}@cluster0.njp5xw3.mongodb.net/?retryWrites=true&w=majority`
+).then(() => {
+  console.log('DB Connected')
+}).catch((err) => console.log(err))
 const uri = process.env.ATLAS_PW;
-mongoose.connect(uri + {});
+//mongoose.connect(uri + {});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
