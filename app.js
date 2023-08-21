@@ -15,6 +15,7 @@ mongoose.connect(`mongodb+srv://goelshivang123:${process.env.MONGO_ATLAS_PW}@clu
 
 const uri = process.env.ATLAS_PW;
 //mongoose.connect(uri + {});
+mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
