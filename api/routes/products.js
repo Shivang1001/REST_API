@@ -98,6 +98,7 @@ router.get('/:productId', (req, res, next) => {
 
 router.patch('/:productId', (req, res, next) => {
   const id = req.params.productId;
+  //console.log('req.body:', req.body);
   const updateOps={};
   for(const ops of req.body){
     updateOps[ops.propName] = ops.value;
@@ -105,8 +106,13 @@ router.patch('/:productId', (req, res, next) => {
   Product.updateOne({_id: id}, { $set: updateOps })
   .exec()
   .then(result => {
-    console.log(result);
-    res.status(200).json(result);
+    res.status(200).json({
+      message: 'Product updated',
+      request: {
+        type: 'GET',
+        url: 'http://localhost:3000/products/' + id,
+      }
+    });
   })
   .catch(err =>{
     console.log(err);
