@@ -31,10 +31,35 @@ router.post('/', (req, res, next) => {
 
 
 router.get('/:orderId', (req, res, next) => {
-    res.status(200).json({
-      message: 'Order details',
-      orderid: req.params.orderId
+    const id = req.params.OrderId;
+    Order.findById(id)
+    .select()
+    .exec()
+    .then(doc => {
+      console.log("From database",doc);
+      if(doc)
+      {
+        res.status(200).json({
+          order: doc,
+          request: {
+            type: 'GET',
+            description: 'GET_ALL_ORDERS',
+            url: "http://localhost:3000/orders"
+          }
+        });
+      }
+      else{
+        res.status(404).json({message: 'No valid entry found for ID'});
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({error: err});
     });
+    // res.status(200).json({
+    //   message: 'Order details',
+    //   orderid: req.params.orderId
+    // });
 });
 
 router.patch('/:productId', (req, res, next) => {
